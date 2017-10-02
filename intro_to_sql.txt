@@ -1,0 +1,110 @@
+Find all the robots from Star Wars.
+intro_to_sql=# SELECT * FROM robots WHERE source='Star Wars';
+ name |  source   | personality | id
+------+-----------+-------------+----
+ C3PO | Star Wars | anxious     |  4
+ R2D2 | Star Wars | loyal       |  8
+(2 rows)
+
+2. Find the robot with an "anxious" personality.
+
+intro_to_sql=# SELECT * FROM robots WHERE personality='anxious';
+ name |  source   | personality | id
+------+-----------+-------------+----
+ C3PO | Star Wars | anxious     |  4
+(1 row)
+
+3. Find all recipes that are nut free.
+
+4. Count the number of recipes that are gluten free but not vegetarian.
+
+intro_to_sql=# SELECT COUNT(gluten_free) FROM recipes WHERE vegetarian = '0';
+ count
+-------
+     2
+(1 row)
+
+5. Find the animal with the most legs.
+
+intro_to_sql=# SELECT * FROM animals ORDER BY number_of_legs ASC;
+       name       | number_of_legs | flying | swimming | egg_laying | id
+------------------+----------------+--------+----------+------------+----
+ whale            |              0 | f      | t        | f          | 10
+ hammerhead shark |              0 | f      | t        | f          |  2
+ bat              |              2 | t      | f        | f          |  6
+ duck             |              2 | t      | t        | t          |  4
+ owl              |              2 | t      | f        | t          |  7
+ chicken          |              2 | f      | f        | t          |  9
+ cow              |              4 | f      | f        | f          |  8
+ sheep            |              4 | f      | f        | f          |  5
+ cat              |              4 | f      | f        | f          |  1
+ octopus          |              8 | f      | t        | t          |  3
+(10 rows)
+
+6. Find the board game that takes the least amount of time to play.
+      intro_to_sql=# SELECT * FROM board_games ORDER BY mins_to_play ASC;
+                name          | max_players | min_players |    category    | mins_to_play | id
+      ------------------------+-------------+-------------+----------------+--------------+----
+       Sushi Go               |           5 |           2 | party          |           15 | 10
+       Quixo                  |           4 |           2 | abstract       |           15 | 11
+       Quarto                 |           2 |           2 | abstract       |           20 |  4
+       Cards Against Humanity |          30 |           5 | party          |           30 |  8
+       7 Wonders              |           7 |           2 | strategy       |           30 |  5
+       7 Wonders              |           7 |           2 | strategy       |           30 | 12
+       Dixit                  |           6 |           3 | party          |           30 |  2
+       Bohnanza               |           7 |           2 | light strategy |           45 |  7
+       Carcassonne            |           5 |           2 | light strategy |           45 |  3
+       Game of Things         |          15 |           2 | party          |           45 |  9
+       Agricola               |           5 |           1 | strategy       |          120 |  6
+       Arkham Horror          |           8 |           1 | strategy       |          240 |  1
+
+7. Find the recipe that takes the most time to prepare.
+      SELECT * FROM recipes ORDER BY minutes_required DESC;
+
+8. Find all the robots whose name starts with the letter M.
+      intro_to_sql=# SELECT * FROM robots WHERE name LIKE 'M%';
+            name      |                source                |  personality  | id
+      ----------------+--------------------------------------+---------------+----
+       Marvin         | The Hitchhiker's Guide to the Galaxy | pessimistic   |  3
+       Mr. Butlertron | Clone High                           | compassionate |  5
+      (2 rows)
+
+9. Count the number of board games that can be played by 8 people.
+      intro_to_sql=# SELECT COUNT(max_players) FROM board_games WHERE max_players > 7;
+       count
+      -------
+           3
+      (1 row)
+
+10. Find all animals that are swimming and egg-laying.
+      intro_to_sql=# SELECT * FROM animals WHERE swimming='1' AND egg_laying='1';
+        name   | number_of_legs | flying | swimming | egg_laying | id
+      ---------+----------------+--------+----------+------------+----
+       octopus |              8 | f      | t        | t          |  3
+       duck    |              2 | t      | t        | t          |  4
+      (2 rows)
+
+11. Find all animals that are swimming and egg-laying but not flying.
+      intro_to_sql=# SELECT * FROM animals WHERE swimming='1' AND egg_laying='1' AND flying='0';
+        name   | number_of_legs | flying | swimming | egg_laying | id
+      ---------+----------------+--------+----------+------------+----
+       octopus |              8 | f      | t        | t          |  3
+      (1 row)
+
+12. Find the board game that supports the largest number of people.
+      intro_to_sql=# SELECT * FROM board_games ORDER BY max_players DESC;
+                name          | max_players | min_players |    category    | mins_to_play | id
+      ------------------------+-------------+-------------+----------------+--------------+----
+       Cards Against Humanity |          30 |           5 | party          |           30 |  8
+       Game of Things         |          15 |           2 | party          |           45 |  9
+       Arkham Horror          |           8 |           1 | strategy       |          240 |  1
+       7 Wonders              |           7 |           2 | strategy       |           30 | 12
+       7 Wonders              |           7 |           2 | strategy       |           30 |  5
+       Bohnanza               |           7 |           2 | light strategy |           45 |  7
+       Dixit                  |           6 |           3 | party          |           30 |  2
+       Carcassonne            |           5 |           2 | light strategy |           45 |  3
+       Sushi Go               |           5 |           2 | party          |           15 | 10
+       Agricola               |           5 |           1 | strategy       |          120 |  6
+       Quixo                  |           4 |           2 | abstract       |           15 | 11
+       Quarto                 |           2 |           2 | abstract       |           20 |  4
+      (12 rows)
